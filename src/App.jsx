@@ -1,31 +1,21 @@
 import { useState } from "react";
 
 const Login = () => {
-  // determinar que user='admin' y que password='admin'
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
-  const changeUsername = (event) => {
-    const texto = event.target.value;
-    setUsername(texto);
+  const empty_user = { username: '', password: '' };
+  const [user, setUser] = useState(empty_user);
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    const nuevo_user = { ...user, [name]: value };
+    setUser(nuevo_user);
   }
 
-  const changePassword = (event) => {
-    const texto = event.target.value;
-    setPassword(texto);
-  }
 
   const auth = () => {
-    if (username.length <= 0 || password.length <= 0) {
-      alert("Debe llenar los campos requeridos");
-      return;
-    }
-
-    if (username == 'admin' && password == 'admin') {
-      alert("Bienvenido!");
-      return;
-    }
-    alert("Credenciales incorrectas");
+    alert(user.username);
+    // Terminar el ejemplo verificando que username y password sean iguales a 'admin'
   }
 
   return (
@@ -33,11 +23,11 @@ const Login = () => {
       <h2>Login</h2>
       <label htmlFor="">Usuario</label>
       <br />
-      <input type="text" placeholder="Ingrese su usuario" onChange={changeUsername} value={username} />
+      <input type="text" placeholder="Ingrese su usuario" name="username" onChange={handleChange} value={user.username} />
       <br />
       <label htmlFor="">Contraseña</label>
       <br />
-      <input type="password" onChange={changePassword} />
+      <input type="password" onChange={handleChange} value={user.password} name="password" />
       <br />
       <button onClick={auth}>Entrar</button>
     </div>
